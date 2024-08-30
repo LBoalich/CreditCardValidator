@@ -13,8 +13,9 @@ public class CreditCard {
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
     String cardNumber = input.nextLine();
-    System.out.println(cardNumber);
     String singleDigits = singleDigitNumbers(cardNumber);
+    int sumOfSingleDigits = sumOfDoubleEvenPlace(singleDigits);
+    System.out.println(sumOfSingleDigits);
   }
 
   /** Return true if the card number is valid */
@@ -22,7 +23,7 @@ public class CreditCard {
     return true;
   }
 
-  /** Return string of single digit numbers */
+  /** Return string of single digit numbers: Step One */
   public static String singleDigitNumbers(String numberString) {
     String singleDigit = "";
     int i;
@@ -35,8 +36,13 @@ public class CreditCard {
   }
 
   /** Get the result from Step 2 */
-  public static int sumOfDoubleEvenPlace(long number) {
-    return 0;
+  public static int sumOfDoubleEvenPlace(String numberString) {
+    int sum = 0;
+    int i;
+    for (i = 0; i < numberString.length(); i++) {
+      sum += Character.getNumericValue(numberString.charAt(i));
+    }
+    return sum;
   }
 
   /** Return this number if it is a single digit, otherwise,

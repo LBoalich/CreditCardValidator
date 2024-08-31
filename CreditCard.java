@@ -15,7 +15,8 @@ public class CreditCard {
     String cardNumber = input.nextLine();
     String singleDigits = singleDigitNumbers(cardNumber);
     int sumOfSingleDigits = sumOfDoubleEvenPlace(singleDigits);
-    System.out.println(sumOfSingleDigits);
+    int sumOfOdd = sumOfOddPlace(cardNumber);
+    System.out.println(sumOfOdd);
   }
 
   /** Return true if the card number is valid */
@@ -63,8 +64,13 @@ public class CreditCard {
   }
 
   /** Return sum of odd-place digits in number */
-  public static int sumOfOddPlace(long number) {
-    return 0;
+  public static int sumOfOddPlace(String numberString) {
+    int sum = 0;
+    int i;
+    for (i = numberString.length() - 1; i >= 0; i -= 2) {
+      sum += Character.getNumericValue(numberString.charAt(i));
+    }
+    return sum;
   }
 
   /** Return true if the number d is a prefix for number */

@@ -18,7 +18,7 @@ public class CreditCard {
     int sumOfOdd = sumOfOddPlace(cardNumber);
     int sumOfSingleAndOdd = sumOfSingleDigits + sumOfOdd;
     String firstK = getPrefix(cardNumber, 2);
-    System.out.println(firstK);
+    System.out.println(prefixMatched(cardNumber, 37));
   }
 
   /** Return true if the card number is valid */
@@ -76,8 +76,11 @@ public class CreditCard {
   }
 
   /** Return true if the number d is a prefix for number */
-  public static boolean prefixMatched(long number, int d) {
-    return true;
+  public static boolean prefixMatched(String numberString, int d) {
+    String dString = Integer.toString(d);
+    String prefix = getPrefix(numberString, getSize(dString));
+    int prefixInt = Integer.parseInt(prefix);
+    return prefixInt == d;
   }
 
   /** Return the number of digits in d */

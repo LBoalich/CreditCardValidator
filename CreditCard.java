@@ -16,7 +16,9 @@ public class CreditCard {
     String singleDigits = singleDigitNumbers(cardNumber);
     int sumOfSingleDigits = sumOfDoubleEvenPlace(singleDigits);
     int sumOfOdd = sumOfOddPlace(cardNumber);
-    System.out.println(sumOfOdd);
+    int sumOfSingleAndOdd = sumOfSingleDigits + sumOfOdd;
+    String firstK = getPrefix(cardNumber, 2);
+    System.out.println(firstK);
   }
 
   /** Return true if the card number is valid */
@@ -28,7 +30,7 @@ public class CreditCard {
   public static String singleDigitNumbers(String numberString) {
     String singleDigit = "";
     int i;
-    for (i = numberString.length() - 2; i >= 0; i -= 2) {
+    for (i = getSize(numberString) - 2; i >= 0; i -= 2) {
       int digit = Character.getNumericValue(numberString.charAt(i));
       int doubledDigit = digit * 2;
       singleDigit += Integer.toString(getDigit(doubledDigit));
@@ -40,7 +42,7 @@ public class CreditCard {
   public static int sumOfDoubleEvenPlace(String numberString) {
     int sum = 0;
     int i;
-    for (i = 0; i < numberString.length(); i++) {
+    for (i = 0; i < getSize(numberString); i++) {
       sum += Character.getNumericValue(numberString.charAt(i));
     }
     return sum;
@@ -67,7 +69,7 @@ public class CreditCard {
   public static int sumOfOddPlace(String numberString) {
     int sum = 0;
     int i;
-    for (i = numberString.length() - 1; i >= 0; i -= 2) {
+    for (i = getSize(numberString) - 1; i >= 0; i -= 2) {
       sum += Character.getNumericValue(numberString.charAt(i));
     }
     return sum;
@@ -79,13 +81,18 @@ public class CreditCard {
   }
 
   /** Return the number of digits in d */
-  public static int getSize(long d) {
-    return 0;
+  public static int getSize(String numberString) {
+    return numberString.length();
   }
 
   /** Return the first k number of digits from number. If the
    * number of digits in number is less than k, return number. */
-  public static long getPrefix(long number, int k) {
-    return 0;
+  public static String getPrefix(String numberString, int k) {
+    if (getSize(numberString) < k) {
+      return numberString;
+    } 
+    else {
+      return numberString.substring(0, k);
+    }
   }
 }

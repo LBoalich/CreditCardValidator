@@ -11,19 +11,48 @@ import java.util.Scanner;
 public class CreditCard {
   /** Main method */
   public static void main(String[] args) {
+    //Create scanner
     Scanner input = new Scanner(System.in);
+    //Get credit card number from the user
+    System.out.println("Enter a credit card number as a long integer: ");
     String cardNumber = input.nextLine();
-    String singleDigits = singleDigitNumbers(cardNumber);
-    int sumOfSingleDigits = sumOfDoubleEvenPlace(singleDigits);
-    int sumOfOdd = sumOfOddPlace(cardNumber);
-    int sumOfSingleAndOdd = sumOfSingleDigits + sumOfOdd;
-    String firstK = getPrefix(cardNumber, 2);
-    System.out.println(prefixMatched(cardNumber, 37));
+    //Check if card is valid
+    String isValid = isValid(cardNumber) ? "valid" : "invalid";
+    //Display if card is valid or not
+    System.out.println(cardNumber + " is " + isValid);
   }
 
   /** Return true if the card number is valid */
-  public static boolean isValid(long number) {
-    return true;
+  public static boolean isValid(String numberString) {
+    //Checks if between 13 and 16 digits
+    boolean validLength = false;
+    if (getSize(numberString) >= 13 && getSize(numberString) <= 16) {
+      validLength = true;
+    } 
+    //Checks if starts with valid prefix
+    boolean validPrefix = prefixIsValid(numberString);
+    //Preform Luhn Check
+    //Double every second digit from right to left
+    String singleDigits = singleDigitNumbers(numberString);
+    //Add single digits
+    int sumOfSingleDigits = sumOfDoubleEvenPlace(singleDigits);
+    //Add digits in odd places from right to left
+    int sumOfOdd = sumOfOddPlace(numberString);
+    //Add sum of single digits and sum of odd
+    int sumOfSingleAndOdd = sumOfSingleDigits + sumOfOdd;
+    //Check if divisible by 10
+    boolean isMod10 = sumOfSingleAndOdd % 10 == 0 ? true : false;
+    // Return true if passes all checks
+    return (validLength && validPrefix && isMod10);
+  }
+
+  /** Return true if the card prefix is valid */
+  public static boolean prefixIsValid(String numberString) {
+    boolean isVisa = prefixMatched(numberString, 4);
+    boolean isMater = prefixMatched(numberString, 5);
+    boolean isAmExpress = prefixMatched(numberString, 37);
+    boolean isDiscover = prefixMatched(numberString, 6);
+    return (isVisa || isMater || isAmExpress || isDiscover);
   }
 
   /** Return string of single digit numbers: Step One */
